@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Quản Trị - CLB IT Zone</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <header class="header">
+        <div class="container navbar">
+            <a href="index.html" class="logo"><i class="fa-solid fa-users-gear"></i> ADMIN PANEL</a>
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="index.html">Trang chủ</a></li>
+                    <li><a href="#" id="logout-btn">Đăng xuất</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container section-padding">
+    <!-- WIDGET FETCH API -->
+    <section class="api-widget" style="background: #e0f2fe; padding: 15px; border-radius: 8px; margin-bottom: 30px;">
+        <h3><i class="fa-solid fa-bolt"></i> Câu nói truyền cảm hứng mỗi ngày (Fetch API)</h3>
+        <p id="quote-text" style="font-style: italic; margin-top: 5px;">Đang tải dữ liệu từ API...</p>
+    </section>
+
+    <h2 class="section-title">Quản Lý & Đăng Sự Kiện Câu Lạc Bộ</h2>
+
+    <!-- DUY NHẤT 1 FORM THÊM / SỬA SỰ KIỆN -->
+    <section style="background: white; padding: 25px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.03); margin-bottom: 30px;">
+        <form id="event-form">
+            <input type="hidden" id="event-id">
+            <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 10px; margin-bottom: 15px;">
+                <input type="text" id="event-title" placeholder="Tên sự kiện / Workshop..." required style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;">
+                <input type="text" id="event-date" placeholder="Ngày (VD: 10/11/2026)" required style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;">
+                <input type="text" id="event-time" placeholder="Giờ (VD: 14:00 - 17:00)" required style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;">
+                <input type="text" id="event-location" placeholder="Địa điểm (VD: Hội trường A)" required style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;">
+            </div>
+            <button type="submit" id="event-save-btn" class="btn btn-primary" style="padding: 10px 20px; background: #2563eb; color: white; border: none; border-radius: 6px; cursor: pointer;">
+                <i class="fa-solid fa-plus"></i> Đăng Sự Kiện
+            </button>
+        </form>
+        <div id="event-message" style="margin-top: 10px; font-weight: 600;"></div>
+    </section>
+
+    <!-- BẢNG DANH SÁCH SỰ KIỆN -->
+    <div style="background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.03);">
+        <table style="width: 100%; border-collapse: collapse; text-align: left;">
+            <thead>
+                <tr style="background: #f1f5f9; border-bottom: 2px solid #cbd5e1;">
+                    <th style="padding: 12px;">STT</th>
+                    <th style="padding: 12px;">Tên sự kiện</th>
+                    <th style="padding: 12px;">Ngày tổ chức</th>
+                    <th style="padding: 12px;">Thời gian</th>
+                    <th style="padding: 12px;">Địa điểm</th>
+                    <th style="padding: 12px; text-align: center;">Hành động</th>
+                </tr>
+            </thead>
+            <tbody id="events-table-body">
+                <!-- Dữ liệu render bằng JS -->
+            </tbody>
+        </table>
+    </div>
+</main>
+
+    <footer class="footer">
+        <div class="container footer-bottom">
+            <p>&copy; 2026 CLB IT Zone. Bài tiểu luận môn Lập trình Web.</p>
+        </div>
+    </footer>
+
+    <script src="assets/js/admin.js"></script>
+</body>
+</html>
