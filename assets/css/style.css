@@ -319,39 +319,38 @@ ul {
         font-size: 2rem;
     }
 }
-/* Tối ưu hóa giao diện cho điện thoại và màn hình nhỏ */
+/* Ép buộc reset lại toàn bộ thanh điều hướng trên màn hình nhỏ */
 @media (max-width: 768px) {
-    /* Gom thanh header/nav thành cột dọc hoặc căn lại cho gọn */
-    header, .header, nav, .navbar {
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        height: auto !important;
-        padding: 10px !important;
+    header {
         position: relative !important;
+        height: auto !important;
+        padding: 10px 0 !important;
     }
-
-    /* Đưa các liên kết menu thành danh sách dọc, không bị đè chữ */
-    nav ul, .nav-links, .navbar ul {
+    
+    .navbar, nav {
         display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
-        gap: 8px !important;
-        margin-top: 10px !important;
-        padding: 0 !important;
-        list-style: none !important;
-    }
-
-    /* Chỉnh lại khung lưới sự kiện thành 1 cột */
-    .events-grid {
-        grid-template-columns: 1fr !important;
-        gap: 15px !important;
-    }
-
-    /* Đảm bảo container không bị tràn lề */
-    .container {
-        padding-left: 15px !important;
-        padding-right: 15px !important;
         width: 100% !important;
+        height: auto !important;
+    }
+
+    /* Gom các link menu thành hàng dọc, cách đều nhau, không bị đè */
+    .nav-links, nav ul, .navbar ul {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 10px !important;
+        width: 100% !important;
+        background: rgba(15, 23, 42, 0.95); /* Tạo nền mờ phía sau cho dễ đọc */
+        padding: 15px 0 !important;
+        margin-top: 10px !important;
+        border-radius: 8px;
+    }
+
+    .nav-links a, nav ul li a, .navbar a {
+        color: #ffffff !important;
+        font-size: 1rem !important;
+        padding: 5px 10px !important;
     }
 }
