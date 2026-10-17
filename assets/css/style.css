@@ -319,3 +319,29 @@ ul {
         font-size: 2rem;
     }
 }
+/* Tối ưu hóa giao diện cho điện thoại và màn hình nhỏ */
+@media (max-width: 768px) {
+    /* Chuyển các khung lưới thành 1 cột duy nhất */
+    .events-grid {
+        grid-template-columns: 1fr !important;
+        gap: 15px !important;
+    }
+
+    /* Đảm bảo các khung container không bị tràn lề */
+    .container {
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+        width: 100% !important;
+    }
+
+    /* Gom gọn thanh điều hướng (Navbar) trên mobile */
+    nav, .navbar {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 10px !important;
+    }
+
+    /* Thu nhỏ kích thước chữ tiêu đề cho vừa vặn màn hình điện thoại */
+    h1 { font-size: 1.5rem !important; }
+    h2 { font-size: 1.3rem !important; }
+}
