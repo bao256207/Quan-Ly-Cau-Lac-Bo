@@ -310,47 +310,40 @@ ul {
     font-size: 0.9rem;
 }
 
-/* --- RESPONSIVE CƠ BẢN --- */
+/* Tối ưu thanh điều hướng nằm ngang cho điện thoại */
 @media (max-width: 768px) {
-    .about-grid, .events-grid, .footer-grid {
-        grid-template-columns: 1fr;
-    }
-    .hero-content h1 {
-        font-size: 2rem;
-    }
-}
-/* Ép buộc reset lại toàn bộ thanh điều hướng trên màn hình nhỏ */
-@media (max-width: 768px) {
-    header {
-        position: relative !important;
-        height: auto !important;
-        padding: 10px 0 !important;
-    }
-    
-    .navbar, nav {
+    header, .header, nav, .navbar {
         display: flex !important;
-        flex-direction: column !important;
+        flex-direction: row !important;
+        justify-content: space-between !important;
         align-items: center !important;
+        padding: 10px 15px !important;
         width: 100% !important;
-        height: auto !important;
+        box-sizing: border-box !important;
     }
 
-    /* Gom các link menu thành hàng dọc, cách đều nhau, không bị đè */
+    /* Đảm bảo danh sách menu nằm trên 1 hàng ngang, tự co giãn */
     .nav-links, nav ul, .navbar ul {
         display: flex !important;
-        flex-direction: column !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important; /* Không cho rớt dòng */
         align-items: center !important;
-        gap: 10px !important;
-        width: 100% !important;
-        background: rgba(15, 23, 42, 0.95); /* Tạo nền mờ phía sau cho dễ đọc */
-        padding: 15px 0 !important;
-        margin-top: 10px !important;
-        border-radius: 8px;
+        gap: 6px !important; /* Khoảng cách giữa các nút */
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow-x: auto; /* Cho phép vuốt ngang nếu màn hình quá nhỏ */
+        white-space: nowrap;
     }
 
     .nav-links a, nav ul li a, .navbar a {
-        color: #ffffff !important;
+        font-size: 0.8rem !important; /* Thu nhỏ chữ để vừa màn hình điện thoại */
+        padding: 4px 6px !important;
+        white-space: nowrap !important;
+    }
+
+    /* Thu nhỏ logo để không chiếm diện tích ngang */
+    .logo, header h1, .navbar h1 {
         font-size: 1rem !important;
-        padding: 5px 10px !important;
+        white-space: nowrap !important;
     }
 }
