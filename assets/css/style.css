@@ -321,27 +321,37 @@ ul {
 }
 /* Tối ưu hóa giao diện cho điện thoại và màn hình nhỏ */
 @media (max-width: 768px) {
-    /* Chuyển các khung lưới thành 1 cột duy nhất */
+    /* Gom thanh header/nav thành cột dọc hoặc căn lại cho gọn */
+    header, .header, nav, .navbar {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        height: auto !important;
+        padding: 10px !important;
+        position: relative !important;
+    }
+
+    /* Đưa các liên kết menu thành danh sách dọc, không bị đè chữ */
+    nav ul, .nav-links, .navbar ul {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 8px !important;
+        margin-top: 10px !important;
+        padding: 0 !important;
+        list-style: none !important;
+    }
+
+    /* Chỉnh lại khung lưới sự kiện thành 1 cột */
     .events-grid {
         grid-template-columns: 1fr !important;
         gap: 15px !important;
     }
 
-    /* Đảm bảo các khung container không bị tràn lề */
+    /* Đảm bảo container không bị tràn lề */
     .container {
         padding-left: 15px !important;
         padding-right: 15px !important;
         width: 100% !important;
     }
-
-    /* Gom gọn thanh điều hướng (Navbar) trên mobile */
-    nav, .navbar {
-        flex-direction: column !important;
-        align-items: stretch !important;
-        gap: 10px !important;
-    }
-
-    /* Thu nhỏ kích thước chữ tiêu đề cho vừa vặn màn hình điện thoại */
-    h1 { font-size: 1.5rem !important; }
-    h2 { font-size: 1.3rem !important; }
 }
