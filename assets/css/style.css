@@ -310,40 +310,42 @@ ul {
     font-size: 0.9rem;
 }
 
-/* Tối ưu thanh điều hướng nằm ngang cho điện thoại */
+/* Đưa Logo và Menu lên cùng 1 hàng ngang trên điện thoại */
 @media (max-width: 768px) {
     header, .header, nav, .navbar {
         display: flex !important;
         flex-direction: row !important;
         justify-content: space-between !important;
         align-items: center !important;
-        padding: 10px 15px !important;
+        padding: 10px 12px !important;
         width: 100% !important;
         box-sizing: border-box !important;
     }
 
-    /* Đảm bảo danh sách menu nằm trên 1 hàng ngang, tự co giãn */
-    .nav-links, nav ul, .navbar ul {
-        display: flex !important;
-        flex-direction: row !important;
-        flex-wrap: nowrap !important; /* Không cho rớt dòng */
-        align-items: center !important;
-        gap: 6px !important; /* Khoảng cách giữa các nút */
+    /* Tên CLB / Logo giữ nguyên hàng ngang gọn gàng bên trái */
+    .logo, header h1, .navbar h1 {
+        font-size: 0.95rem !important;
         margin: 0 !important;
-        padding: 0 !important;
-        overflow-x: auto; /* Cho phép vuốt ngang nếu màn hình quá nhỏ */
-        white-space: nowrap;
-    }
-
-    .nav-links a, nav ul li a, .navbar a {
-        font-size: 0.8rem !important; /* Thu nhỏ chữ để vừa màn hình điện thoại */
-        padding: 4px 6px !important;
         white-space: nowrap !important;
     }
 
-    /* Thu nhỏ logo để không chiếm diện tích ngang */
-    .logo, header h1, .navbar h1 {
-        font-size: 1rem !important;
+    /* Các liên kết menu dàn ngang bên phải, cho phép cuộn nhẹ nếu màn hình quá hẹp */
+    .nav-links, nav ul, .navbar ul {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        gap: 6px !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        list-style: none !important;
+        overflow-x: auto !important; /* Vuốt ngang nếu màn hình rất nhỏ */
+        white-space: nowrap !important;
+    }
+
+    /* Thu nhỏ kích thước chữ menu để vừa khít 1 hàng */
+    .nav-links a, nav ul li a, .navbar a {
+        font-size: 0.75rem !important;
+        padding: 4px 5px !important;
         white-space: nowrap !important;
     }
 }
