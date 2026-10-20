@@ -94,6 +94,39 @@
             messageBox.style.color = '#ef4444';
             messageBox.innerHTML = 'Sai tài khoản hoặc mật khẩu! (Tài khoản mẫu: admin / admin123)';
         }
+        document.addEventListener('DOMContentLoaded', () => {
+    const loginForm = document.getElementById('login-form');
+    
+    if (loginForm) {
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const usernameInput = document.getElementById('username').value.trim();
+            const passwordInput = document.getElementById('password').value.trim();
+
+            // 1. Kiểm tra nếu là tài khoản Admin cố định
+            if (usernameInput === 'admin' && passwordInput === 'admin123') {
+                sessionStorage.setItem('currentRole', 'admin');
+                sessionStorage.setItem('currentUser', 'Quản Trị Viên');
+                alert('Đăng nhập quyền Quản trị thành công!');
+                window.location.href = 'admin.html';
+                return;
+            }
+
+            // 2. Kiểm tra trong danh sách tài khoản thành viên đã đăng ký (localStorage)
+            let usersList = JSON.parse(localStorage.getItem('clubUsers')) || [];
+            const validUser = usersList.find(u => u.username === usernameInput && u.password === passwordInput);
+
+            if (validUser) {
+                sessionStorage.setItem('currentRole', 'member');
+                sessionStorage.setItem('currentUser', validUser.fullname || validUser.username);
+                alert('Đăng nhập thành công! Chào mừng ' + validUser.fullname);
+                window.location.href = 'index.html'; // Chuyển về trang chủ cho thành viên
+            } else {
+                alert('Sai tên đăng nhập hoặc mật khẩu!');
+            }
+        });
+    }
+});
     });
 </script>
 </body>

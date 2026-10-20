@@ -5,27 +5,39 @@ document.addEventListener('DOMContentLoaded', () => {
         registerForm.addEventListener('submit', (e) => {
             e.preventDefault();
 
-            // Lấy thông tin từ các ô input
             const fullname = document.getElementById('fullname')?.value.trim() || '';
-            const email = document.getElementById('email')?.value.trim() || '';
-            const studentId = document.getElementById('student-id')?.value.trim() || 'Chưa nhập';
+            const username = document.getElementById('username')?.value.trim() || document.getElementById('email')?.value.trim();
+            const password = document.getElementById('password')?.value.trim();
 
-            const newMember = {
+            if (!username || !password) {
+                alert('Vui lòng nhập đầy đủ thông tin tài khoản và mật khẩu!');
+                return;
+            }
+
+            // Lấy danh sách tài khoản đã đăng ký từ localStorage
+            let usersList = JSON.parse(localStorage.getItem('clubUsers')) || [];
+
+            // Kiểm tra xem tài khoản đã tồn tại chưa
+            const existingUser = usersList.find(u => u.username === username);
+            if (existingUser) {
+                alert('Tên đăng nhập hoặc Email này đã được sử dụng!');
+                return;
+            }
+
+            // Thêm tài khoản mới vào danh sách
+            const newUser = {
                 id: Date.now(),
                 fullname: fullname,
-                email: email,
-                studentId: studentId
+                username: username,
+                password: password,
+                role: 'member' // Phân quyền là thành viên thường
             };
 
-            // Lấy danh sách thành viên hiện có trong LocalStorage
-            let membersList = JSON.parse(localStorage.getItem('clubMembers')) || [];
-            membersList.push(newMember);
+            usersList.push(newUser);
+            localStorage.setItem('clubUsers', JSON.stringify(usersList));
 
-            // Lưu lại vào LocalStorage
-            localStorage.setItem('clubMembers', JSON.stringify(membersList));
-
-            alert('Đăng ký tham gia CLB thành công!');
-            registerForm.reset();
+            alert('Đăng ký tài khoản thành công! Vui lòng chuyển sang trang đăng nhập.');
+            window.location.href = 'login.html';
         });
     }
 });
