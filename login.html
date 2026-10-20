@@ -1,109 +1,14 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đăng Nhập - CLB IT Zone</title>
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-<body>
-
-    <header class="header">
-        <div class="container navbar">
-            <a href="index.html" class="logo"><i class="fa-solid fa-users-gear"></i> CLB IT ZONE</a>
-            <nav class="nav-menu">
-                <ul>
-                    <li><a href="index.html">Trang chủ</a></li>
-                    <li><a href="register.html" class="btn-register">Gia nhập CLB</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-
-    <section class="section-padding">
-        <div class="container" style="max-width: 500px;">
-            <div class="form-container" style="background: white; padding: 40px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.03);">
-                <h2 class="section-title" style="margin-bottom: 20px;">Đăng Nhập Hệ Thống</h2>
-                
-                <form id="login-form">
-                    <div class="form-group" style="margin-bottom: 20px;">
-                        <label for="username" style="display:block; margin-bottom:8px; font-weight:600;">Tài khoản</label>
-                        <input type="text" id="username" placeholder="Nhập admin hoặc member" required style="width:100%; padding:10px; border:1px solid #cbd5e1; border-radius:6px;">
-                    </div>
-
-                    <div class="form-group" style="margin-bottom: 25px;">
-                        <label for="password" style="display:block; margin-bottom:8px; font-weight:600;">Mật khẩu</label>
-                        <input type="password" id="password" placeholder="Nhập mật khẩu bất kỳ" required style="width:100%; padding:10px; border:1px solid #cbd5e1; border-radius:6px;">
-                    </div>
-
-                    <button type="submit" class="btn btn-primary btn-full" style="width:100%; padding:12px; background:#2563eb; color:white; border:none; border-radius:6px; font-weight:600; cursor:pointer;">Đăng Nhập</button>
-                </form>
-                
-                <div id="login-message" style="margin-top: 15px; text-align: center; font-size: 0.9rem;"></div>
-            </div>
-        </div>
-    </section>
-
-    <footer class="footer">
-        <div class="container footer-bottom">
-            <p>&copy; 2026 CLB IT Zone. Bài tiểu luận môn Lập trình Web.</p>
-        </div>
-    </footer>
-
-<script>
-    // Kiểm tra nếu đã đăng nhập rồi thì mới tự chuyển sang Admin, chưa thì ở lại trang login
-    document.addEventListener('DOMContentLoaded', function() {
-        // Khởi tạo danh sách tài khoản mẫu nếu chưa có
-        if (!localStorage.getItem('usersList')) {
-            const defaultUsers = [
-                { username: 'admin', password: 'admin123', role: 'admin' },
-                { username: 'member', password: '123456', role: 'member' }
-            ];
-            localStorage.setItem('usersList', JSON.stringify(defaultUsers));
-        }
-    });
-
-    // Xử lý khi nhấn nút Đăng Nhập
-    document.getElementById('login-form').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const userInput = document.getElementById('username').value.trim();
-        const passInput = document.getElementById('password').value.trim();
-        const messageBox = document.getElementById('login-message');
-
-        const users = JSON.parse(localStorage.getItem('usersList')) || [];
-        const foundUser = users.find(u => u.username === userInput && u.password === passInput);
-
-        if (foundUser) {
-            // Lưu thông tin phiên đăng nhập
-            sessionStorage.setItem('currentUser', foundUser.username);
-            sessionStorage.setItem('currentRole', foundUser.role);
-
-            messageBox.style.color = '#15803d';
-            messageBox.innerHTML = 'Đăng nhập thành công! Đang chuyển hướng...';
-
-            setTimeout(() => {
-                if (foundUser.role === 'admin') {
-                    window.location.href = 'admin.html';
-                } else {
-                    window.location.href = 'index.html';
-                }
-            }, 800);
-        } else {
-            messageBox.style.color = '#ef4444';
-            messageBox.innerHTML = 'Sai tài khoản hoặc mật khẩu! (Tài khoản mẫu: admin / admin123)';
-        }
-        document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
     const loginForm = document.getElementById('login-form');
     
     if (loginForm) {
         loginForm.addEventListener('submit', (e) => {
             e.preventDefault();
+            
             const usernameInput = document.getElementById('username').value.trim();
             const passwordInput = document.getElementById('password').value.trim();
 
-            // 1. Kiểm tra nếu là tài khoản Admin cố định
+            // 1. Kiểm tra tài khoản Admin mặc định
             if (usernameInput === 'admin' && passwordInput === 'admin123') {
                 sessionStorage.setItem('currentRole', 'admin');
                 sessionStorage.setItem('currentUser', 'Quản Trị Viên');
@@ -114,20 +19,18 @@
 
             // 2. Kiểm tra trong danh sách tài khoản thành viên đã đăng ký (localStorage)
             let usersList = JSON.parse(localStorage.getItem('clubUsers')) || [];
+            
+            // Tìm tài khoản khớp cả username/email và mật khẩu
             const validUser = usersList.find(u => u.username === usernameInput && u.password === passwordInput);
 
             if (validUser) {
                 sessionStorage.setItem('currentRole', 'member');
                 sessionStorage.setItem('currentUser', validUser.fullname || validUser.username);
                 alert('Đăng nhập thành công! Chào mừng ' + validUser.fullname);
-                window.location.href = 'index.html'; // Chuyển về trang chủ cho thành viên
+                window.location.href = 'index.html'; // Chuyển về trang chủ
             } else {
                 alert('Sai tên đăng nhập hoặc mật khẩu!');
             }
         });
     }
 });
-    });
-</script>
-</body>
-</html>
