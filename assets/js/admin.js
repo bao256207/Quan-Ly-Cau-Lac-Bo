@@ -121,4 +121,55 @@ document.addEventListener('DOMContentLoaded', () => {
 
     fetchDailyQuote();
     renderAdminEvents();
+    // HÀM HIỂN THỊ DANH SÁCH THÀNH VIÊN ĐĂNG KÝ
+    const membersTableBody = document.getElementById('members-table-body');
+    const statMembers = document.getElementById('stat-members');
+
+    function renderAdminMembers() {
+        if (!membersTableBody) return;
+
+        // Dữ liệu mẫu ban đầu nếu chưa có ai đăng ký
+        let membersList = JSON.parse(localStorage.getItem('clubMembers')) || [
+            { id: 1, fullname: 'Đặng Gia Bảo', email: 'bao@gmail.com', studentId: '221101' },
+            { id: 2, fullname: 'Nguyễn Văn A', email: 'nguyenvana@gmail.com', studentId: '221102' }
+        ];
+
+        membersTableBody.innerHTML = '';
+
+        if (membersList.length === 0) {
+            membersTableBody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding: 15px; color: #94a3b8;">Chưa có thành viên nào đăng ký.</td></tr>`;
+            if (statMembers) statMembers.innerText = 0;
+            return;
+        }
+
+        membersList.forEach((mb, index) => {
+            const tr = document.createElement('tr');
+            tr.style.borderBottom = '1px solid #e2e8f0';
+            tr.innerHTML = `
+                <td style="padding: 12px;">${index + 1}</td>
+                <td style="padding: 12px; font-weight: 600;">${mb.fullname}</td>
+                <td style="padding: 12px;">${mb.email}</td>
+                <td style="padding: 12px;">${mb.studentId}</td>
+                <td style="padding: 12px; text-align: center;">
+                    <button onclick="deleteMember(${mb.id})" style="background:#ef4444; color:white; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;"><i class="fa-solid fa-trash"></i> Xóa</button>
+                </td>
+            `;
+            membersTableBody.appendChild(tr);
+        });
+
+        // Cập nhật số lượng lên ô Thống kê Dashboard
+        if (statMembers) statMembers.innerText = membersList.length;
+    }
+
+    // Hàm xóa thành viên
+    window.deleteMember = (id) => {
+        if (confirm('Bạn có chắc muốn xóa thành viên này khỏi danh sách?')) {
+            let membersList = JSON.parse(localStorage.getItem('clubMembers')) || [];
+            membersList = membersList.filter(mb => mb.id !== id);
+            localStorage.setItem('clubMembers', JSON.stringify(membersList));
+            renderAdminMembers();
+        }
+    };
+
+    renderAdminMembers();
 });

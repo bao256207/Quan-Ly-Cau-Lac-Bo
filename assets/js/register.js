@@ -1,56 +1,31 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', () => {
     const registerForm = document.getElementById('register-form');
-    const messageBox = document.getElementById('register-message');
-
+    
     if (registerForm) {
-        registerForm.addEventListener('submit', function (e) {
-            e.preventDefault(); // Ngăn chặn load lại trang mặc định của form
+        registerForm.addEventListener('submit', (e) => {
+            e.preventDefault();
 
-            // 1. Lấy dữ liệu từ các ô input
-            const fullname = document.getElementById('fullname').value.trim();
-            const studentId = document.getElementById('student-id').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const phone = document.getElementById('phone').value.trim();
-            const department = document.getElementById('department').value;
-            const note = document.getElementById('note').value.trim();
+            // Lấy thông tin từ các ô input
+            const fullname = document.getElementById('fullname')?.value.trim() || '';
+            const email = document.getElementById('email')?.value.trim() || '';
+            const studentId = document.getElementById('student-id')?.value.trim() || 'Chưa nhập';
 
-            // 2. Tạo đối tượng chứa thông tin thành viên mới đăng ký
             const newMember = {
-                id: Date.now(), // Tạo ID ngẫu nhiên dựa trên thời gian
+                id: Date.now(),
                 fullname: fullname,
-                studentId: studentId,
                 email: email,
-                phone: phone,
-                department: department,
-                note: note,
-                status: 'Chờ duyệt', // Trạng thái mặc định để Admin duyệt sau này
-                date: new Date().toLocaleDateString('vi-VN')
+                studentId: studentId
             };
 
-            // 3. Lấy danh sách thành viên cũ từ LocalStorage (nếu có)
+            // Lấy danh sách thành viên hiện có trong LocalStorage
             let membersList = JSON.parse(localStorage.getItem('clubMembers')) || [];
-
-            // 4. Thêm thành viên mới vào danh sách
             membersList.push(newMember);
 
-            // 5. Lưu ngược lại vào LocalStorage
+            // Lưu lại vào LocalStorage
             localStorage.setItem('clubMembers', JSON.stringify(membersList));
 
-            // 6. Hiển thị thông báo thành công và reset form
-            messageBox.style.display = 'block';
-            messageBox.style.color = '#15803d';
-            messageBox.style.backgroundColor = '#dcfce7';
-            messageBox.style.padding = '10px';
-            messageBox.style.borderRadius = '6px';
-            messageBox.style.marginTop = '15px';
-            messageBox.innerHTML = 'Gửi đơn đăng ký thành công! Ban Chủ nhiệm sẽ xem xét và phản hồi sớm cho bạn.';
-
+            alert('Đăng ký tham gia CLB thành công!');
             registerForm.reset();
-
-            // Sau 3 giây ẩn thông báo
-            setTimeout(() => {
-                messageBox.style.display = 'none';
-            }, 4000);
         });
     }
 });
